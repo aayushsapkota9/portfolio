@@ -1,0 +1,56 @@
+---
+import Card from './ui/Card.astro';
+import { nowPlaying } from '../data/site';
+---
+
+<Card
+  hover
+  class="h-full w-full flex-col items-end justify-end overflow-visible px-7 py-6 text-right"
+>
+  <div
+    class="mb-4 w-full border-b border-hairline pb-4 font-satoshi text-sm font-bold uppercase tracking-wide text-ink"
+  >
+    Recent favorite
+  </div>
+
+  <a
+    href={nowPlaying.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group flex max-w-full items-center justify-end space-x-4 leading-snug active:translate-y-[1px]"
+  >
+    <div class="text-right">
+      <div class="text-lg font-medium text-ink">{nowPlaying.track}</div>
+      <div class="text-base font-medium text-muted">{nowPlaying.artist}</div>
+    </div>
+
+    <div
+      class="relative grid h-12 w-12 shrink-0 place-items-center rounded-full border border-line bg-white transition-colors group-hover:border-accent"
+    >
+      <span class="flex items-end gap-[3px]" aria-hidden="true">
+        <i class="bar" style="animation-delay:0ms"></i>
+        <i class="bar" style="animation-delay:180ms"></i>
+        <i class="bar" style="animation-delay:360ms"></i>
+      </span>
+    </div>
+  </a>
+</Card>
+
+<style>
+  .bar {
+    display: block;
+    width: 3px;
+    height: 14px;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    animation: eq 900ms ease-in-out infinite alternate;
+  }
+  @keyframes eq {
+    from {
+      height: 5px;
+    }
+    to {
+      height: 16px;
+    }
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+import Card from './ui/Card.astro';
+
+interface Props {
+  title: string;
+  tagline: string;
+  href: string;
+  variant?: 'panels' | 'lines' | 'chat';
+  delay?: number;
+}
+
+const { title, tagline, href, variant = 'lines', delay = 0 } = Astro.props;
+---
+
+<div class="rise relative flex-1 rounded-2xl" style={`--rise-delay:${delay}ms`}>
+  <a
+    href={href}
+    class="group/card block h-full rounded-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-4"
+  >
+    <Card
+      class="relative flex h-full items-center overflow-hidden px-7 py-6 transition-[background] duration-300 group-hover/card:fancy-card-hover group-active/card:translate-y-[2px]"
+    >
+      <div class="z-10 min-w-0">
+        <div class="text-2xl font-medium leading-none text-ink">{title}</div>
+        <div class="mt-2.5 text-base font-medium leading-none text-muted">
+          {tagline}
+        </div>
+
+        <!-- hover affordance: opacity only, so its space is always reserved
+             and revealing it never shifts the title/tagline -->
+        <div
+          class="mt-3 flex translate-y-1 items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-accent opacity-0 transition-all duration-300 group-hover/card:translate-y-0 group-hover/card:opacity-100 group-focus-visible/card:translate-y-0 group-focus-visible/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100"
+        >
+          Explore projects
+          <svg
+            class="h-2.5 w-2.5 transition-transform duration-300 group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path d="M3 11 11 3M5 3h6v6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- faint UI hint, bleeding off the right edge -->
+      <div
+        class="pointer-events-none absolute -right-8 top-1/2 hidden w-44 -translate-y-1/2 opacity-90 transition-transform duration-500 group-hover/card:-translate-y-[54%] sm:block"
+        aria-hidden="true"
+      >
+        {
+          variant === 'panels' && (
+            <div class="flex gap-2.5">
+              {[0, 1, 2].map(() => (
+                <div class="flex-1 rounded-xl border border-line/70 bg-white/80 p-2">
+                  <div class="mx-auto h-6 w-6 rounded-full bg-faint/40" />
+                  <div class="mt-2 h-1.5 w-full rounded-full bg-faint/45" />
+                  <div class="mt-1.5 h-1.5 w-2/3 rounded-full bg-faint/30" />
+                </div>
+              ))}
+            </div>
+          )
+        }
+        {
+          variant === 'lines' && (
+            <div class="rounded-xl border border-line/70 bg-white/80 p-3">
+              <div class="space-y-2.5">
+                {[
+                  ['w-full', 'bg-faint/50'],
+                  ['w-4/5', 'bg-faint/40'],
+                  ['w-full', 'bg-faint/35'],
+                  ['w-3/5', 'bg-accent/35'],
+                ].map(([w, c]) => (
+                  <div class="flex items-center gap-2">
+                    <div class="h-2 w-2 shrink-0 rounded-full bg-faint/40" />
+                    <div class={`h-1.5 ${w} rounded-full ${c}`} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        }
+        {
+          variant === 'chat' && (
+            <div class="rounded-xl border border-line/70 bg-white/80 p-3">
+              <div class="space-y-2.5">
+                {['w-full', 'w-3/4', 'w-5/6'].map((w, i) => (
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 shrink-0 text-center text-[9px] font-bold leading-none text-faint">
+                      {i === 1 ? '~' : '>'}
+                    </span>
+                    <div
+                      class={`h-1.5 ${w} rounded-full ${i === 2 ? 'bg-accent/35' : 'bg-faint/45'}`}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </Card>
+  </a>
+</div>

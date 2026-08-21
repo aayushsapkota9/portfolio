@@ -1,0 +1,74 @@
+---
+interface Props {
+  text?: string;
+}
+
+const { text = 'aayush.' } = Astro.props;
+const letters = [...text];
+---
+
+<div class="relative w-fit">
+  <div class="flex justify-center">
+    {
+      letters.map((ch, i) => (
+        <h1
+          style={`animation-delay:${i * 33}ms`}
+          class="wm inline-block align-baseline font-display text-[68px] font-medium leading-none tracking-tighter text-ink drop-shadow-sm xs:text-[100px] xs:font-semibold xl:text-[180px]"
+        >
+          {ch}
+        </h1>
+      ))
+    }
+  </div>
+
+  <div
+    class="rise absolute -right-28 top-2 hidden rounded-full bg-accent px-3 pb-2 pt-1 font-satoshi text-lg font-semibold leading-none tracking-wide text-white xl:block"
+    style="--rise-delay:285ms"
+  >
+    <span class="inline-block text-base" id="greeting">Hello!</span>
+    <svg
+      class="absolute -bottom-2 left-5 h-3 w-4 text-accent"
+      viewBox="0 0 16 12"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M0 0h16L4 12Z"></path>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .wm {
+    animation: wm-rise 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  @keyframes wm-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(28px);
+      filter: blur(16px);
+    }
+    60% {
+      opacity: 1;
+      filter: blur(3px);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+</style>
+
+<script>
+  // Midnight is not morning — the small hours get their own greeting.
+  const greetingFor = (h: number) => {
+    if (h < 5) return 'Still up?';
+    if (h < 12) return 'Good morning!';
+    if (h < 17) return 'Good afternoon!';
+    if (h < 22) return 'Good evening!';
+    return 'Up late?';
+  };
+
+  const el = document.getElementById('greeting');
+  if (el) el.textContent = greetingFor(new Date().getHours());
+</script>

@@ -1,11 +1,177 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
+import NowPlayingCard from '../components/NowPlayingCard.astro';
+import BioCard from '../components/BioCard.astro';
+import PhotoCard from '../components/PhotoCard.astro';
+import FocusCard from '../components/FocusCard.astro';
+import LogoPanel from '../components/LogoPanel.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import StackPanel from '../components/StackPanel.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site, focus } from '../data/site';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const featured = projects.filter((p) => p.data.featured).slice(0, 3);
+
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Base title={`${site.name} — full-stack engineer & DevOps`}>
+  <main class="px-4 pb-10 xs:px-10">
+    <!-- ── header ─────────────────────────────────────────── -->
+    <header
+      class="mx-auto grid max-w-8xl grid-cols-12 gap-y-6 xs:gap-x-12 xs:gap-y-0"
+    >
+      <div
+        class="z-50 col-span-10 p-3 pt-6 xs:col-span-4 xs:pl-8 xs:pt-24 md:pl-0 lg:pl-0 lg:pt-10"
+      >
+        <Wordmark text={site.wordmark} />
+      </div>
+
+      <div class="col-span-2 min-[896px]:col-span-3"></div>
+
+      <div
+        class="group rise col-span-10 mb-4 hidden h-fit flex-col items-end justify-end p-8 px-0 text-right xs:mb-8 md:col-span-6 md:flex min-[896px]:col-span-5 lg:col-span-5"
+        style="--rise-delay:130ms"
+      >
+        <NowPlayingCard />
+      </div>
+    </header>
+
+    <!-- ── row 1: bio · photo · experiments ───────────────── -->
+    <div
+      class="mx-auto grid h-full max-w-8xl grid-cols-12 gap-y-6 xs:gap-x-12 xs:gap-y-10"
+    >
+      <div
+        class="rise order-1 col-span-12 h-full md:order-1 md:col-span-6 min-[896px]:col-span-7 xl:col-span-4"
+        style="--rise-delay:190ms"
+      >
+        <BioCard />
+      </div>
+
+      <div
+        class="rise order-2 col-span-12 flex md:order-2 md:col-span-6 min-[896px]:col-span-5 xl:order-2 xl:col-span-4"
+        style="--rise-delay:285ms"
+      >
+        <div class="relative flex h-96 w-full xs:h-full">
+          <PhotoCard />
+        </div>
+      </div>
+
+      <div
+        class="order-3 col-span-12 flex h-full flex-col gap-6 xl:order-3 xl:col-span-4"
+      >
+        <div class="rise" style="--rise-delay:320ms">
+        <Eyebrow label="What I do">
+          <svg
+            slot="icon"
+            class="h-4 w-4 text-accent"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"
+              stroke-linecap="round"></path>
+          </svg>
+        </Eyebrow>
+        </div>
+
+        <div class="flex h-full flex-col gap-6">
+          {focus.map((f, i) => <FocusCard {...f} delay={370 + i * 60} />)}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── row 2: toolkit · domains ───────────────────────── -->
+    <div
+      class="mx-auto my-6 grid max-w-8xl grid-cols-12 gap-y-6 xs:my-10 xs:gap-x-12 xs:gap-y-0"
+    >
+      <div
+        class="rise relative order-1 col-span-12 flex flex-col gap-6 xl:order-1 xl:col-span-8"
+        style="--rise-delay:560ms"
+      >
+        <Eyebrow label="Toolkit">
+          <svg
+            slot="icon"
+            class="h-4 w-4 text-accent"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path d="m8 6-6 6 6 6m8-12 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </Eyebrow>
+        <StackPanel />
+      </div>
+
+      <div
+        class="rise relative order-2 col-span-12 flex flex-col-reverse xs:mt-12 xl:order-2 xl:col-span-4 xl:flex-col"
+        style="--rise-delay:620ms"
+      >
+        <LogoPanel />
+      </div>
+    </div>
+
+    <!-- ── row 3: featured projects ───────────────────────── -->
+    <div class="mx-auto grid max-w-8xl grid-cols-12">
+      <div class="col-span-12 flex flex-col gap-6">
+        <div class="rise flex flex-wrap items-end justify-between gap-4" style="--rise-delay:640ms">
+          <Eyebrow label="Selected projects">
+            <svg
+              slot="icon"
+              class="h-4 w-4 text-accent"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8ZM9 6V4h6v2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </Eyebrow>
+
+          <a
+            href="/projects"
+            class="group/all inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-accent"
+          >
+            View all {projects.length} projects
+            <svg
+              class="h-3 w-3 transition-transform group-hover/all:translate-x-0.5"
+              viewBox="0 0 14 14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M3 11 11 3M5 3h6v6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {
+            featured.map((p, i) => (
+              <div class="rise" style={`--rise-delay:${680 + i * 35}ms`}>
+                <ProjectCard {...p.data} href={`/projects/${p.id}`} />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <SiteFooter />
+  </main>
+</Base>

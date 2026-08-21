@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter-tight";
+
+/* ---------- self-hosted display + label faces (Fontshare, FFL) ---------- */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2-variations");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/fonts/CabinetGrotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- design tokens ---------- */
+@theme {
+  --breakpoint-xs: 29.6875rem;          /* 475px */
+  --container-8xl: 90rem;               /* max-w-8xl */
+
+  --font-sans:    "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-satoshi: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink:         #2f2f2f;
+  --color-muted:       #767676;
+  --color-faint:       #afb9c9;
+  --color-slate:       #77818f;
+  --color-line:        #d7dde4;
+  --color-line-card:   rgba(215, 221, 228, 0.6);
+  --color-hairline:    rgba(118, 118, 118, 0.31);
+  --color-accent:      #f97316;
+  --color-accent-wash: #fff3e6;
+  --color-card:        #fcfcfc;
+
+  --radius-frame: 1.75rem;              /* 28px — inner photo frame */
+  --radius-card:  2rem;                 /* 32px — the fancy-card    */
+
+  --shadow-fancy:
+    inset 0 -3px 0 0 rgba(0, 0, 0, 0.05),
+    inset 0 0 0 2px #fff,
+    inset 0 4px 2px 0 rgba(0, 0, 0, 0.06),
+    inset 0 0 24px 4px rgba(0, 0, 0, 0.04),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- base ---------- */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "rlig", "calt";
+  }
+  p {
+    font-size: 1.125rem;
+    line-height: 2rem;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+  h3 {
+    font-size: 1.625rem;
+    line-height: 1.625rem;
+    font-weight: 500;
+  }
+  ::selection {
+    background: var(--color-accent-wash);
+    color: var(--color-ink);
+  }
+}
+
+/* ---------- the signature surface ----------
+   Five inset shadows + one outer drop. This is the whole look —
+   do not collapse it into a single `shadow-lg`. */
+@utility fancy-card {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-line-card);
+  background: linear-gradient(#f7f7f7, #ffffff);
+  box-shadow: var(--shadow-fancy);
+}
+
+/* v4 generates every variant of a @utility for free, so
+   `hover:fancy-card-hover` and `group-hover/card:fancy-card-hover`
+   both work with no extra CSS. */
+@utility fancy-card-hover {
+  cursor: pointer;
+  background: linear-gradient(#f7f7f7, var(--color-accent-wash));
+}
+
+
+/* ---------- entrance: fade + rise 24px, staggered left→right ----------
+   Matches the reference's initial state (opacity 0, translateY(24px)).
+   Applied to WRAPPERS, never to a card itself — `both` fill would otherwise
+   pin transform:none and kill the card's own hover/active transforms. */
+@keyframes rise-in {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(20px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: none;
+  }
+}
+
+/* Long duration + tight stagger is what makes this read as one continuous
+   wave instead of cards popping in sequence: ~9 elements are mid-blur at any
+   instant, so the soft field covers most of the viewport top to bottom.
+   The curve is deliberately NOT an easeOutQuint — that front-loads the motion
+   and each card snaps. This spreads the change evenly across the duration.
+   No `will-change`: it has no off-switch and would strand 11 compositor layers. */
+@utility rise {
+  animation: rise-in 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* ---------- Safari Satoshi fallback (as the reference ships it) ---------- */
+@supports (-webkit-hyphens: none) {
+  .font-satoshi.font-bold,
+  .font-satoshi.font-semibold {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui !important;
+  }
+  .font-satoshi.font-bold { font-weight: 800 !important; }
+  .font-satoshi.font-semibold { font-weight: 600 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

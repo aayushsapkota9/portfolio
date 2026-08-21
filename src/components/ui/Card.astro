@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  /** Enable the warm cream hover wash + press. */
+  hover?: boolean;
+  class?: string;
+}
+
+const { hover = false, class: className, ...rest } = Astro.props;
+---
+
+<div
+  class:list={[
+    'fancy-card transform-gpu',
+    hover &&
+      'transition-[background] duration-300 hover:fancy-card-hover active:translate-y-[2px]',
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</div>

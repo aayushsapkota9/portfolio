@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import Card from './ui/Card.astro';
+import portrait from '../assets/profile.jpg';
+---
+
+<Card class="relative flex h-full w-full overflow-hidden">
+  <div
+    class="pointer-events-none absolute bottom-4 left-6 z-50 font-satoshi text-xs font-bold uppercase tracking-wide text-white/90 drop-shadow"
+  >
+    IMG.JPG
+  </div>
+
+  <!-- concentric frame: 32px outer − 6px padding = 28px inner -->
+  <div
+    class="relative flex h-full w-full overflow-hidden rounded-frame border border-ink/30 p-1.5"
+  >
+    <div
+      class="pointer-events-none absolute z-40 h-[calc(100%-12px)] w-[calc(100%-12px)] rounded-3xl border border-white/40"
+    >
+    </div>
+    <!-- absolutely positioned so the portrait's 3:4 ratio can't inflate the row height;
+         the bio card drives the row and the photo crops to fill it -->
+    <div class="relative h-full w-full overflow-hidden rounded-3xl">
+      <Image
+        src={portrait}
+        alt="Aayush Sapkota"
+        widths={[420, 720, 1080]}
+        sizes="(max-width: 768px) 100vw, 33vw"
+        class="absolute inset-0 h-full w-full object-cover object-[50%_35%]"
+        loading="eager"
+      />
+    </div>
+  </div>
+</Card>

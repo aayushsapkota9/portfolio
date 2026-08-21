@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import Eyebrow from '../../components/ui/Eyebrow.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { site } from '../../data/site';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const groups = [
+  { key: 'client', label: 'Client work', blurb: 'Shipped for organisations and businesses.' },
+  { key: 'product', label: 'Products', blurb: 'Things I am building to be used.' },
+  { key: 'personal', label: 'Personal builds', blurb: 'Tools I wrote for myself, then kept.' },
+] as const;
+---
+
+<Base
+  title={`Projects — ${site.name}`}
+  description="Government platforms, ERP systems, e-commerce, and the tools in between."
+>
+  <main class="px-4 pb-10 xs:px-10">
+    <div class="mx-auto max-w-8xl pt-16 xs:pt-24">
+      <a
+        href="/"
+        class="font-satoshi text-sm font-bold uppercase tracking-wide text-muted transition-colors hover:text-accent"
+        >← Back</a
+      >
+
+      <h2
+        class="mt-6 font-display text-[48px] font-medium leading-none tracking-tighter text-ink xs:text-[76px]"
+      >
+        Projects
+      </h2>
+      <p class="mt-4 max-w-2xl">
+        Government platforms, accounting systems, storefronts, and a few tools I built
+        because the alternative annoyed me. Most client repositories are private —
+        happy to walk through any of them.
+      </p>
+
+      {
+        groups.map((g) => {
+          const items = projects.filter((p) => p.data.kind === g.key);
+          if (items.length === 0) return null;
+          return (
+            <section class="mt-16">
+              <Eyebrow label={g.label} class="ml-0" />
+              <p class="ml-0 mt-3 text-base">{g.blurb}</p>
+              <div class="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+                {items.map((p, i) => (
+                  <div class="rise" style={`--rise-delay:${120 + i * 85}ms`}>
+                    <ProjectCard {...p.data} href={`/projects/${p.id}`} />
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+
+    <SiteFooter />
+  </main>
+</Base>

@@ -1,0 +1,25 @@
+---
+import Card from './ui/Card.astro';
+import { stack } from '../data/site';
+---
+
+<Card class="px-6 py-6 xs:px-8 xs:py-7">
+  <div class="grid grid-cols-1 gap-x-10 gap-y-7 sm:grid-cols-2">
+    {
+      stack.map((g) => (
+        <div>
+          <div class="mb-3 font-mono text-[11px] uppercase tracking-[0.1em] text-accent">
+            {g.group}
+          </div>
+          <ul class="flex flex-wrap gap-1.5">
+            {g.items.map((i) => (
+              <li class="rounded-md border border-line/80 px-2 py-1 font-mono text-[11px] leading-none text-muted">
+                {i}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</Card>

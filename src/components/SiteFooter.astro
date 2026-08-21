@@ -1,0 +1,90 @@
+---
+import Card from "./ui/Card.astro";
+import PillButton from "./ui/PillButton.astro";
+import { site, socials } from "../data/site";
+
+interface Props {
+  /** Where the footer sits in the page's entrance wave. */
+  delay?: number;
+}
+
+const { delay = 750 } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="rise w-full bg-transparent py-12"
+  style={`--rise-delay:${delay}ms`}
+>
+  <Card class="mx-auto max-w-8xl overflow-hidden px-6 py-12 xs:px-12 xs:py-16">
+    <div class="flex flex-col gap-14 lg:flex-row lg:justify-between lg:gap-20">
+      <!-- pitch -->
+      <div class="max-w-lg">
+        <!-- same status-row grammar as the project cards -->
+        <div
+          class="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted"
+        >
+          <span>{site.academic}</span>
+          <span class="text-line">/</span>
+          <span>Nepal · remote</span>
+        </div>
+
+        <p
+          class="mt-6 font-display text-[42px] font-medium leading-[1.03] tracking-tighter text-ink xs:text-[60px]"
+        >
+          Open to work.<br />Ready to ship.
+        </p>
+
+        <p class="mt-6 max-w-md text-base leading-7">
+          I'm looking for full-stack and DevOps roles, and I take on select
+          freelance work. Most client repos are private — email me and I'll walk
+          you through any of them.
+        </p>
+
+        <div class="mt-8">
+          <PillButton href={`mailto:${site.email}`}>{site.email}</PillButton>
+        </div>
+      </div>
+
+      <!-- contact rows, in the same data-row style as the rest of the site -->
+      <nav aria-label="Elsewhere" class="shrink-0 lg:min-w-[300px]">
+        <div
+          class="mb-4 font-mono text-[11px] uppercase tracking-[0.1em] text-accent"
+        >
+          Elsewhere
+        </div>
+        <ul class="divide-y divide-hairline/30 border-y border-hairline/30">
+          {
+            socials.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  target={s.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={
+                    s.href.startsWith("mailto:")
+                      ? undefined
+                      : "noopener noreferrer"
+                  }
+                  class="group/row flex items-baseline justify-between gap-6 py-3"
+                >
+                  <span class="text-base font-medium text-ink transition-colors group-hover/row:text-accent">
+                    {s.name}
+                  </span>
+                  <span class="truncate font-mono text-[11px] text-muted transition-colors group-hover/row:text-ink">
+                    {s.handle}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <div
+      class="mt-14 flex flex-col gap-2 border-t border-hairline/30 pt-6 font-mono text-[11px] uppercase tracking-[0.08em] text-muted xs:flex-row xs:items-center xs:justify-between"
+    >
+      <span>© {year} {site.name}</span>
+    </div>
+  </Card>
+</footer>

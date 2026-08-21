@@ -1,0 +1,56 @@
+---
+interface Props {
+  href: string;
+  class?: string;
+  external?: boolean;
+  /** Full-width pill with the arrow pushed to the far right. */
+  block?: boolean;
+}
+
+const { href, class: className, external = false, block = false } = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  class:list={[
+    'group/button rounded-3xl border border-line font-medium leading-none text-muted',
+    'transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2',
+    'focus-visible:ring-accent/40 focus-visible:ring-offset-2 active:translate-y-[1px]',
+    block
+      ? 'flex w-full items-center justify-between px-5 py-4 text-lg'
+      : 'inline-flex items-center gap-x-2 px-4 py-3.5 pr-5 text-lg',
+    className,
+  ]}
+>
+  <span class="transition-transform group-hover/button:-translate-y-0.5">
+    <slot />
+  </span>
+
+  {
+    block ? (
+      <svg
+        class="h-4 w-4 shrink-0 transition-transform group-hover/button:translate-x-0.5"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        aria-hidden="true"
+      >
+        <path d="m6 3 5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    ) : (
+      <svg
+        class="h-3.5 w-3.5 transition-transform group-hover/button:translate-x-0.5"
+        viewBox="0 0 14 14"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        aria-hidden="true"
+      >
+        <path d="M3 11 11 3M5 3h6v6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    )
+  }
+</a>

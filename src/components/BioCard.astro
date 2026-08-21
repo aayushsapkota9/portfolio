@@ -1,0 +1,64 @@
+---
+import Card from "./ui/Card.astro";
+import { site, bioSocials } from "../data/site";
+---
+
+<Card
+  class="flex h-full flex-col justify-between gap-y-6 overflow-clip px-6 py-6 xs:px-7"
+>
+  <div class="z-10 space-y-5">
+    <p>
+      I'm a full-stack engineer who builds scalable web apps and automates the
+      infrastructure they run on — most recently government platforms and
+      accounting systems used across Nepal.
+    </p>
+    <p>
+      Off the clock, I like exploring new technologies and business ideas and
+      travelling.
+    </p>
+  </div>
+
+  <!-- socials left · contact right, mirroring the reference footer row -->
+  <div
+    class="z-10 flex flex-col items-start gap-5 xs:flex-row xs:items-end xs:justify-between xs:gap-4"
+  >
+    <ul class="flex items-center gap-2.5">
+      {
+        bioSocials.map((s) => (
+          <li>
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={s.name}
+              class="grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition-all hover:scale-110 hover:border-accent hover:text-accent active:translate-y-[1px]"
+            >
+              <span class="sr-only">{s.name}</span>
+              <svg
+                class="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d={s.path} />
+              </svg>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="w-full text-left xs:w-auto xs:text-right">
+      <div
+        class="mb-1.5 font-satoshi text-sm font-bold uppercase tracking-wide text-muted"
+      >
+        Find me at
+      </div>
+      <a
+        href={`mailto:${site.email}`}
+        class="break-words text-base font-medium text-ink transition-colors hover:text-accent xs:text-lg"
+        >{site.email}</a
+      >
+    </div>
+  </div>
+</Card>

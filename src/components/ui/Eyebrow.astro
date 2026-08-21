@@ -1,0 +1,26 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className } = Astro.props;
+---
+
+<div class:list={['ml-2.5 flex items-center space-x-2.5', className]}>
+  <slot name="icon">
+    <svg
+      class="h-4 w-4 text-accent"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="3.5"></circle>
+    </svg>
+  </slot>
+  <div
+    class="font-satoshi text-sm font-bold uppercase tracking-wide text-accent"
+  >
+    {label}
+  </div>
+</div>

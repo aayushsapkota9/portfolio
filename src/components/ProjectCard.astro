@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import Card from './ui/Card.astro';
+
+interface Props {
+  title: string;
+  tagline: string;
+  kind: 'client' | 'product' | 'personal';
+  status: 'live' | 'archived' | 'private' | 'in-progress';
+  year: number;
+  stack: string[];
+  cover: ImageMetadata;
+  href: string;
+  /** Compact = home page (no description body). */
+  compact?: boolean;
+}
+
+const {
+  title, tagline, kind, status, year, stack, cover, href, compact = false,
+} = Astro.props;
+
+const statusTone: Record<string, string> = {
+  live: 'text-emerald-600',
+  'in-progress': 'text-accent',
+  archived: 'text-muted',
+  private: 'text-muted',
+};
+const statusLabel: Record<string, string> = {
+  live: 'Live',
+  'in-progress': 'In progress',
+  archived: 'Archived',
+  private: 'Private',
+};
+---
+
+<a
+  href={href}
+  class="group/card block rounded-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-4"
+>
+  <Card
+    class="relative flex h-full flex-col overflow-hidden transition-[background] duration-300 group-hover/card:fancy-card-hover"
+  >
+    <!-- poster -->
+    <div class="relative m-3 mb-0 overflow-hidden rounded-3xl bg-white">
+      <Image
+        src={cover}
+        alt={`${title} preview`}
+        widths={[480, 800, 1200]}
+        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+        class="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 group-hover/card:scale-[1.02]"
+      />
+    </div>
+
+    <div class="flex flex-grow flex-col gap-4 px-6 pb-5 pt-5">
+      <!-- meta row -->
+      <div
+        class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted"
+      >
+        <span class={statusTone[status]}>{statusLabel[status]}</span>
+        <span class="text-line">/</span>
+        <span>{kind}</span>
+        <span class="text-line">/</span>
+        <span>{year}</span>
+      </div>
+
+      <div>
+        <h3
+          class="text-2xl font-medium leading-tight text-ink transition-colors group-hover/card:text-accent"
+        >
+          {title}
+        </h3>
+        {!compact && <p class="mt-2 text-base leading-7">{tagline}</p>}
+      </div>
+
+      <!-- stack chips -->
+      {
+        stack.length > 0 && (
+          <ul class="mt-auto flex flex-wrap gap-1.5 pt-1">
+            {stack.map((s) => (
+              <li class="rounded-md border border-line/80 px-2 py-1 font-mono text-[10px] uppercase leading-none tracking-[0.08em] text-muted">
+                {s}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </Card>
+</a>
