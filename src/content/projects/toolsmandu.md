@@ -19,11 +19,11 @@ gallery:
     caption: Product page with plan selection and a notify-me flow when stock runs out
   - src: ../../assets/portfolio-sites/toolsmandu/register.png
     caption: Registration built around a WhatsApp number, not just an email address
-  - src: ../../assets/portfolio-sites/toolsmandu-admin/admin-dashboard-r2.png
+  - src: ../../assets/portfolio-sites/toolsmandu-admin/admin-dashboard-r3.png
     caption: Admin — order status, fulfilment rate, and empty-credential alerts
-  - src: ../../assets/portfolio-sites/toolsmandu-admin/admin-products.png
+  - src: ../../assets/portfolio-sites/toolsmandu-admin/admin-products-r3.png
     caption: Admin — product and plan management
-  - src: ../../assets/portfolio-sites/toolsmandu-admin/admin-tickets-r2.png
+  - src: ../../assets/portfolio-sites/toolsmandu-admin/admin-tickets-r3.png
     caption: Admin — support tickets routed by type, joined to the order they concern
 ---
 
