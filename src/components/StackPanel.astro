@@ -4,20 +4,34 @@ import { stack } from '../data/site';
 ---
 
 <Card class="px-6 py-6 xs:px-8 xs:py-7">
-  <div class="grid grid-cols-1 gap-x-10 gap-y-7 sm:grid-cols-2">
+  <div class="grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2">
     {
-      stack.map((g) => (
+      stack.map((g, i) => (
         <div>
-          <div class="mb-3 font-mono text-[11px] uppercase tracking-[0.1em] text-accent">
-            {g.group}
+          {/* same label vocabulary as the Sectors panel beside it, so the two
+              cards in this row read as a pair */}
+          <div class="mb-2.5 flex items-baseline gap-2.5">
+            <span class="font-mono text-[11px] leading-none tabular-nums text-faint">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="font-satoshi text-sm font-bold uppercase leading-none tracking-wide text-muted">
+              {g.group}
+            </h3>
           </div>
-          <ul class="flex flex-wrap gap-1.5">
-            {g.items.map((i) => (
-              <li class="rounded-md border border-line/80 px-2 py-1 font-mono text-[11px] leading-none text-muted">
-                {i}
-              </li>
+
+          {/* no size classes — inherits the base `p` rule (18px/32px, muted),
+              so this reads at exactly the same size as the bio copy */}
+          <p>
+            {/* the separator rides with the word before it, and the pair is
+                nowrap — so a line can only break *after* a `·`, never leaving
+                one orphaned at the start of a line, and `Node / Express` never
+                breaks across its slash */}
+            {g.items.map((t, j) => (
+              <Fragment>
+                <span class="whitespace-nowrap">{t}{j < g.items.length - 1 && <span class="text-line">&#160;·</span>}</span>{' '}
+              </Fragment>
             ))}
-          </ul>
+          </p>
         </div>
       ))
     }
