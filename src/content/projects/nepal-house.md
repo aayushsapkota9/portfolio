@@ -5,7 +5,7 @@ kind: client
 status: live
 year: 2025
 role: Frontend & integration
-stack: ['NEXT.JS', 'TAILWIND', 'EASYTABLE', 'VERCEL']
+stack: ['Next.js', 'Tailwind', 'easyTable', 'Vercel']
 cover: ../../assets/projects/nepal-house.jpg
 url: https://www.nepalhouse.no/
 order: 6

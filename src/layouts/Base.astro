@@ -1,17 +1,92 @@
 ---
 import '../styles/global.css';
+import { site, socials } from '../data/site';
 
 interface Props {
   title: string;
   description?: string;
+  /** Absolute or root-relative path to the share image for this page. */
+  image?: string;
+  /** 'website' for listings, 'article' for a single project write-up. */
+  type?: 'website' | 'article';
+  /** Extra JSON-LD to merge into the graph for this page. */
+  schema?: Record<string, unknown>[];
 }
 
 const {
   title,
-  description = 'Full-stack engineer building scalable apps and automating the infrastructure they run on.',
+  description = 'Aayush Sapkota builds full-stack web apps with Next.js, NestJS and PostgreSQL and runs them on AWS, Docker and Kubernetes. Freelance developer in Nepal.',
+  image = '/og.jpg',
+  type = 'website',
+  schema = [],
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+// One Person node, referenced by @id from every page, so search engines treat
+// the site as one identity rather than a separate person per URL.
+const personId = `${Astro.site}#person`;
+const person = {
+  '@type': 'Person',
+  '@id': personId,
+  name: site.name,
+  url: Astro.site?.toString(),
+  email: `mailto:${site.email}`,
+  image: ogImage.toString(),
+  jobTitle: 'Full-stack engineer & DevOps',
+  description,
+  address: { '@type': 'PostalAddress', addressCountry: 'NP', addressLocality: 'Nepal' },
+  alumniOf: { '@type': 'EducationalOrganization', name: site.academic },
+  knowsAbout: [
+    'Full-stack web development', 'Next.js', 'React', 'TypeScript', 'NestJS',
+    'Node.js', 'PostgreSQL', 'MongoDB', 'DevOps', 'AWS', 'Docker',
+    'Kubernetes', 'Terraform', 'CI/CD', 'Nginx',
+  ],
+  sameAs: socials.filter((s) => s.href.startsWith('http')).map((s) => s.href),
+  // Describes work offered, not work wanted — the search intent to match is
+  // someone looking to hire a developer, not a recruiter filling a role.
+  makesOffer: [
+    'Full-stack web application development',
+    'Next.js and React front-end development',
+    'Node.js, NestJS and REST API development',
+    'Cloud infrastructure and DevOps (AWS, Docker, Kubernetes, CI/CD)',
+    'Database design and PostgreSQL development',
+  ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+};
+
+const graph = [
+  person,
+  {
+    '@type': 'ProfessionalService',
+    '@id': `${Astro.site}#service`,
+    name: `${site.name} — freelance web development & DevOps`,
+    url: Astro.site?.toString(),
+    image: ogImage.toString(),
+    email: `mailto:${site.email}`,
+    founder: { '@id': personId },
+    address: { '@type': 'PostalAddress', addressCountry: 'NP', addressLocality: 'Nepal' },
+    // Remote work, so the service area is not the office location.
+    areaServed: 'Worldwide',
+    serviceType: [
+      'Web development',
+      'Full-stack development',
+      'DevOps',
+      'Cloud infrastructure',
+    ],
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${Astro.site}#website`,
+    url: Astro.site?.toString(),
+    name: `${site.name} — portfolio`,
+    description,
+    publisher: { '@id': personId },
+    inLanguage: 'en',
+  },
+  ...schema,
+];
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 ---
 
 <!doctype html>
@@ -20,14 +95,37 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <!-- max-image-preview:large opts the share image into rich results; without
+         it Google may show only a thumbnail or none at all. -->
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#f97316" />
+
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} — full-stack engineer and DevOps`} />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link
       rel="preload"
       href="/fonts/CabinetGrotesk-Variable.woff2"
@@ -42,6 +140,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       type="font/woff2"
       crossorigin
     />
+
+    <script type="application/ld+json" set:html={jsonLd} is:inline />
   </head>
   <body class="h-full">
     <slot />

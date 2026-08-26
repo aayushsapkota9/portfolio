@@ -5,7 +5,7 @@ kind: client
 status: live
 year: 2025
 role: Full-stack engineer
-stack: ['NEXT.JS', 'NESTJS', 'POSTGRESQL', 'DOCKER', 'AWS']
+stack: ['Next.js', 'NestJS', 'PostgreSQL', 'Docker', 'AWS']
 cover: ../../assets/projects/krishi-connect-dashboard.jpg
 url: https://play.google.com/store/apps/details?id=app.krishiconnect
 featured: true

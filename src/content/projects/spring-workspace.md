@@ -5,7 +5,7 @@ kind: personal
 status: private
 year: 2025
 role: Solo — full-stack
-stack: ['SPRING BOOT', 'REACT', 'DOCKER', 'WEBSOCKET', 'POSTGRESQL']
+stack: ['Spring Boot', 'React', 'Docker', 'WebSocket', 'PostgreSQL']
 cover: ../../assets/projects/spring-workspace.jpg
 order: 9
 gallery:

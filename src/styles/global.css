@@ -20,6 +20,11 @@
 /* ---------- design tokens ---------- */
 @theme {
   --breakpoint-xs: 29.6875rem;          /* 475px */
+  /* Registered as a real breakpoint rather than written inline as
+     min-[896px]:. Tailwind emits arbitrary media variants *before* the
+     named ones, so min-[896px]:col-span-5 lost to md:col-span-6 at equal
+     specificity and the header summed to 13 columns and wrapped. */
+  --breakpoint-md2: 56rem;              /* 896px */
   --container-8xl: 90rem;               /* max-w-8xl */
 
   --font-sans:    "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;

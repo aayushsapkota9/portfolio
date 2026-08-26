@@ -20,22 +20,24 @@ const featured = projects.filter((p) => p.data.featured).slice(0, 3);
 
 ---
 
-<Base title={`${site.name} — full-stack engineer & DevOps`}>
+<Base
+  title={`${site.name} — Full-Stack Web Developer & DevOps, Nepal`}
+  description="Freelance full-stack developer in Nepal. I build web apps with Next.js, NestJS and PostgreSQL, and run them on AWS, Docker and Kubernetes."
+>
   <main class="px-4 pb-10 xs:px-10">
     <!-- ── header ─────────────────────────────────────────── -->
     <header
-      class="mx-auto grid max-w-8xl grid-cols-12 gap-y-6 xs:gap-x-12 xs:gap-y-0"
+      class="mx-auto grid max-w-8xl grid-cols-12 gap-y-6 md:gap-x-12 xs:gap-y-0"
     >
       <div
-        class="z-50 col-span-10 p-3 pt-6 xs:col-span-4 xs:pl-8 xs:pt-24 md:pl-0 lg:pl-0 lg:pt-10"
+        class="z-50 col-span-12 p-3 pt-14 md:col-span-6 md2:col-span-7 xs:pl-8 xs:pt-24 md:pl-0 lg:pl-0 lg:pt-14 xl:pt-10"
       >
         <Wordmark text={site.wordmark} />
       </div>
 
-      <div class="col-span-2 min-[896px]:col-span-3"></div>
 
       <div
-        class="group rise col-span-10 mb-4 hidden h-fit flex-col items-end justify-end p-8 px-0 text-right xs:mb-8 md:col-span-6 md:flex min-[896px]:col-span-5 lg:col-span-5"
+        class="group rise col-span-10 mb-4 hidden h-fit flex-col items-end justify-end p-8 px-0 text-right xs:mb-8 md:col-span-6 md:flex md2:col-span-5"
         style="--rise-delay:130ms"
       >
         <NowPlayingCard />
@@ -44,20 +46,20 @@ const featured = projects.filter((p) => p.data.featured).slice(0, 3);
 
     <!-- ── row 1: bio · photo · experiments ───────────────── -->
     <div
-      class="mx-auto grid h-full max-w-8xl grid-cols-12 gap-y-6 xs:gap-x-12 xs:gap-y-10"
+      class="mx-auto grid h-full max-w-8xl grid-cols-12 gap-y-6 md:gap-x-12 xs:gap-y-10"
     >
       <div
-        class="rise order-1 col-span-12 h-full md:order-1 md:col-span-6 min-[896px]:col-span-7 xl:col-span-4"
+        class="rise order-1 col-span-12 h-full md:order-1 md:col-span-6 md2:col-span-7 xl:col-span-4"
         style="--rise-delay:190ms"
       >
         <BioCard />
       </div>
 
       <div
-        class="rise order-2 col-span-12 flex md:order-2 md:col-span-6 min-[896px]:col-span-5 xl:order-2 xl:col-span-4"
+        class="rise order-2 col-span-12 flex md:order-2 md:col-span-6 md2:col-span-5 xl:order-2 xl:col-span-4"
         style="--rise-delay:285ms"
       >
-        <div class="relative flex h-96 w-full xs:h-full">
+        <div class="relative flex h-96 w-full xs:h-[28rem] md:h-full">
           <PhotoCard />
         </div>
       </div>
@@ -91,7 +93,7 @@ const featured = projects.filter((p) => p.data.featured).slice(0, 3);
 
     <!-- ── row 2: toolkit · domains ───────────────────────── -->
     <div
-      class="mx-auto my-6 grid max-w-8xl grid-cols-12 gap-y-6 xs:my-10 xs:gap-x-12 xs:gap-y-0"
+      class="mx-auto my-6 grid max-w-8xl grid-cols-12 gap-y-6 xs:my-10 md:gap-x-12 xs:gap-y-0"
     >
       <div
         class="rise relative order-1 col-span-12 flex flex-col gap-6 xl:order-1 xl:col-span-8"

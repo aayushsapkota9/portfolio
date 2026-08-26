@@ -5,7 +5,7 @@ kind: personal
 status: private
 year: 2025
 role: Solo — built at a hackathon
-stack: ['GEMINI 2.5', 'GEMINI TTS', 'GOOGLE CALENDAR', 'WHATSAPP']
+stack: ['Gemini 2.5', 'Gemini TTS', 'Google Calendar', 'WhatsApp']
 cover: ../../assets/projects/checkmate-whatsapp.jpg
 repo: https://github.com/aayushsapkota9/CODEFEST-checkmate
 order: 11

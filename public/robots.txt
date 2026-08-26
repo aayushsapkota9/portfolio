@@ -1,0 +1,8 @@
+# Everything here is meant to be found.
+User-agent: *
+Allow: /
+
+# Astro's dev-only image endpoint; never useful in search results.
+Disallow: /_image
+
+Sitemap: https://aayushsapkota.vercel.app/sitemap-index.xml

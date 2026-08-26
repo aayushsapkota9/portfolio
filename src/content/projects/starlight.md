@@ -5,7 +5,7 @@ kind: client
 status: live
 year: 2025
 role: Frontend
-stack: ['ASTRO', 'TAILWIND', 'I18N', 'VERCEL']
+stack: ['Astro', 'Tailwind', 'i18n', 'Vercel']
 cover: ../../assets/projects/starlight.jpg
 url: https://starlightllc.jp/
 order: 7

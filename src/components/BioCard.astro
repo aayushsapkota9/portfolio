@@ -19,8 +19,13 @@ import { site, bioSocials } from "../data/site";
   </div>
 
   <!-- socials left · contact right, mirroring the reference footer row -->
+  <!-- The card's width is not a function of viewport width — it is col-span-7
+       at 1000px but col-span-4 at 1280px — so a viewport breakpoint cannot
+       decide whether these two fit side by side. Wrapping does: they share a
+       line when there is room and the address drops to its own line when not,
+       instead of being silently cut off by the card's overflow-clip. -->
   <div
-    class="z-10 flex flex-col items-start gap-5 xs:flex-row xs:items-end xs:justify-between xs:gap-4"
+    class="z-10 flex w-full flex-wrap items-end justify-between gap-x-4 gap-y-5"
   >
     <ul class="flex items-center gap-2.5">
       {
@@ -48,7 +53,7 @@ import { site, bioSocials } from "../data/site";
       }
     </ul>
 
-    <div class="w-full text-left xs:w-auto xs:text-right">
+    <div class="ml-auto min-w-0 text-right">
       <div
         class="mb-1.5 font-satoshi text-sm font-bold uppercase tracking-wide text-muted"
       >
@@ -56,7 +61,7 @@ import { site, bioSocials } from "../data/site";
       </div>
       <a
         href={`mailto:${site.email}`}
-        class="break-words text-base font-medium text-ink transition-colors hover:text-accent xs:text-lg"
+        class="block break-words text-base font-medium text-ink transition-colors hover:text-accent"
         >{site.email}</a
       >
     </div>

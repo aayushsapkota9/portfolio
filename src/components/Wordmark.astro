@@ -1,31 +1,54 @@
 ---
 interface Props {
   text?: string;
+  /** The real, indexable heading. The letters below are decorative. */
+  heading?: string;
 }
 
-const { text = 'aayush.' } = Astro.props;
+const {
+  text = 'aayush.',
+  heading = 'Aayush Sapkota — full-stack engineer and DevOps, Nepal',
+} = Astro.props;
 const letters = [...text];
 ---
 
-<div class="relative w-fit">
-  <div class="flex justify-center">
+<!-- The bubble sits beside the name when the line has room for it and hops
+     above it when it does not — decided by the browser rather than by a
+     breakpoint, because "is there room" depends on the greeting too:
+     "Good afternoon!" is twice the width of "Up late?".
+
+     flex-wrap-reverse is what buys the upward hop. A normal wrap would drop
+     the badge BELOW the name; wrap-reverse flips the cross axis so the first
+     line stays at the bottom and any wrapped line stacks above it. It also
+     flips align-items, which is why the badge uses items-end to sit at the
+     visual TOP of the name when the two share a line. -->
+<div class="flex flex-wrap-reverse items-end gap-x-3">
+  <!-- One h1 carrying real text. The wordmark is split per letter to stagger
+       the entrance animation, so each letter is a decorative aria-hidden span:
+       as separate headings they made the page's only headings read
+       "a", "a", "y", "u", "s", "h", "." to crawlers and screen readers. -->
+  <h1 class="flex shrink-0 justify-center">
+    <span class="sr-only">{heading}</span>
     {
       letters.map((ch, i) => (
-        <h1
+        <span
+          aria-hidden="true"
           style={`animation-delay:${i * 33}ms`}
           class="wm inline-block align-baseline font-display text-[68px] font-medium leading-none tracking-tighter text-ink drop-shadow-sm xs:text-[100px] xs:font-semibold xl:text-[180px]"
         >
           {ch}
-        </h1>
+        </span>
       ))
     }
-  </div>
+  </h1>
 
+  <!-- mb-3 is load-bearing when the badge wraps above: leading-none leaves no
+       slack over the glyph tops, so without it the tail rests on the letters. -->
   <div
-    class="rise absolute -right-28 top-2 hidden rounded-full bg-accent px-3 pb-2 pt-1 font-satoshi text-lg font-semibold leading-none tracking-wide text-white xl:block"
+    class="rise relative mb-3 shrink-0 rounded-full bg-accent px-2.5 pb-1.5 pt-1 font-satoshi font-semibold leading-none tracking-wide text-white xs:px-3 xs:pb-2"
     style="--rise-delay:285ms"
   >
-    <span class="inline-block text-base" id="greeting">Hello!</span>
+    <span class="inline-block whitespace-nowrap text-xs xs:text-sm xl:text-base" id="greeting">Hello!</span>
     <svg
       class="absolute -bottom-2 left-5 h-3 w-4 text-accent"
       viewBox="0 0 16 12"

@@ -5,7 +5,7 @@ kind: client
 status: live
 year: 2025
 role: Full-stack engineer
-stack: ['NEXT.JS', 'NESTJS', 'POSTGRESQL', 'NGINX', 'LINUX']
+stack: ['Next.js', 'NestJS', 'PostgreSQL', 'Nginx', 'Linux']
 cover: ../../assets/projects/digipalika.jpg
 order: 2
 gallery:

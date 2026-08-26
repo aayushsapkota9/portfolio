@@ -5,7 +5,7 @@ kind: personal
 status: live
 year: 2025
 role: Solo
-stack: ['REACT', 'TYPESCRIPT', 'GOOGLE API', 'TAILWIND', 'VERCEL']
+stack: ['React', 'TypeScript', 'Google API', 'Tailwind', 'Vercel']
 cover: ../../assets/projects/pomodoro-neon.jpg
 url: https://pomodoro-neon-xi.vercel.app/
 order: 8

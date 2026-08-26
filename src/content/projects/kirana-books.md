@@ -5,7 +5,7 @@ kind: product
 status: in-progress
 year: 2026
 role: Solo — full-stack
-stack: ['NEXT.JS', 'TYPESCRIPT', 'POSTGRESQL', 'DOCKER']
+stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Docker']
 cover: ../../assets/projects/kirana-books.jpg
 featured: true
 order: 4

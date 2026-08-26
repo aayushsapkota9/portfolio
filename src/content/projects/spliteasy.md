@@ -5,7 +5,7 @@ kind: personal
 status: live
 year: 2026
 role: Solo
-stack: ['REACT', 'TYPESCRIPT', 'TAILWIND', 'VERCEL']
+stack: ['React', 'TypeScript', 'Tailwind', 'Vercel']
 cover: ../../assets/projects/spliteasy.jpg
 order: 10
 gallery:

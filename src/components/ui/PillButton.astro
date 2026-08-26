@@ -15,16 +15,20 @@ const { href, class: className, external = false, block = false } = Astro.props;
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
   class:list={[
-    'group/button rounded-3xl border border-line font-medium leading-none text-muted',
+    // max-w-full so a long label (an email, a project URL) wraps inside the
+    // pill instead of pushing past its card and the viewport
+    'group/button max-w-full rounded-3xl border border-line font-medium leading-none text-muted',
     'transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2',
     'focus-visible:ring-accent/40 focus-visible:ring-offset-2 active:translate-y-[1px]',
     block
       ? 'flex w-full items-center justify-between px-5 py-4 text-lg'
-      : 'inline-flex items-center gap-x-2 px-4 py-3.5 pr-5 text-lg',
+      : 'inline-flex items-center gap-x-2 px-4 py-3.5 pr-5 text-lg leading-snug',
     className,
   ]}
 >
-  <span class="transition-transform group-hover/button:-translate-y-0.5">
+  <span
+    class="min-w-0 break-words transition-transform group-hover/button:-translate-y-0.5"
+  >
     <slot />
   </span>
 

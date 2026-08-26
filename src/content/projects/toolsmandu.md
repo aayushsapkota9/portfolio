@@ -5,7 +5,7 @@ kind: client
 status: archived
 year: 2024
 role: Full-stack engineer
-stack: ['NEXT.JS', 'NODEJS', 'MONGODB', 'TAILWIND', 'VERCEL']
+stack: ['Next.js', 'Node.js', 'MongoDB', 'Tailwind', 'Vercel']
 cover: ../../assets/projects/toolsmandu.jpg
 url: https://web.archive.org/web/20260215191137/https://www.toolsmandu.com/
 featured: true

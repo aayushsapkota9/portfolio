@@ -25,9 +25,55 @@ const statusLabel: Record<string, string> = {
   archived: 'Archived',
   private: 'Private',
 };
+
+// Breadcrumbs give search results the Home › Projects › Name trail instead of
+// a bare URL; the CreativeWork lets a single case study rank on its own terms.
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${Astro.site}` },
+      { '@type': 'ListItem', position: 2, name: 'Projects', item: `${Astro.site}projects/` },
+      { '@type': 'ListItem', position: 3, name: d.title },
+    ],
+  },
+  {
+    '@type': 'CreativeWork',
+    name: d.title,
+    headline: `${d.title} — ${d.tagline}`,
+    description: d.tagline,
+    url: new URL(Astro.url.pathname, Astro.site).toString(),
+    dateCreated: String(d.year),
+    creator: { '@id': `${Astro.site}#person` },
+    author: { '@id': `${Astro.site}#person` },
+    keywords: d.stack.join(', '),
+    ...(d.url ? { sameAs: d.url } : {}),
+  },
+];
+
+/** Trim to a word boundary so a truncated string never ends mid-word. */
+const clip = (text: string, max: number) => {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:—-]$/, '');
+};
+
+// Search results cut titles around 60 characters. The tagline is a full
+// sentence and truncating it mid-phrase reads as broken, so the title carries
+// the two lead technologies instead and the tagline goes in the description.
+const title = `${d.title} — ${d.stack.slice(0, 2).join(' & ')} | Aayush Sapkota`;
+const description = clip(
+  `${d.tagline}. Built with ${d.stack.slice(0, 4).join(', ')} by Aayush Sapkota.`,
+  158,
+);
 ---
 
-<Base title={`${d.title} — Aayush Sapkota`} description={d.tagline}>
+<Base
+  title={title}
+  description={description}
+  type="article"
+  schema={schema}
+>
   <main class="px-4 pb-10 xs:px-10">
     <article class="mx-auto max-w-6xl pt-16 xs:pt-24">
       <a
