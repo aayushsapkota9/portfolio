@@ -10,14 +10,19 @@ interface Props {
   year: number;
   stack: string[];
   cover: ImageMetadata;
+  gallery?: { src: ImageMetadata; caption: string }[];
   href: string;
   /** Compact = home page (no description body). */
   compact?: boolean;
 }
 
 const {
-  title, tagline, kind, status, year, stack, cover, href, compact = false,
+  title, tagline, kind, status, year, stack, cover, gallery = [], href, compact = false,
 } = Astro.props;
+
+// All slides: cover first, then gallery images
+const slides = [{ src: cover, caption: title }, ...gallery];
+const hasMultiple = slides.length > 1;
 
 const statusTone: Record<string, string> = {
   live: 'text-emerald-600',
@@ -40,15 +45,70 @@ const statusLabel: Record<string, string> = {
   <Card
     class="relative flex h-full flex-col overflow-hidden transition-[background] duration-300 group-hover/card:fancy-card-hover"
   >
-    <!-- poster -->
-    <div class="relative m-3 mb-0 overflow-hidden rounded-3xl bg-white">
-      <Image
-        src={cover}
-        alt={`${title} preview`}
-        widths={[480, 800, 1200]}
-        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-        class="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 group-hover/card:scale-[1.02]"
-      />
+    <!-- image carousel wrapper (JS root) -->
+    <div data-card-carousel>
+
+      <!-- image + arrows -->
+      <div class="relative m-3 mb-0 overflow-hidden rounded-3xl bg-white">
+
+        <!-- scroll track -->
+        <div
+          class="card-track flex snap-x snap-mandatory overflow-x-auto"
+          style="-ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth;"
+        >
+          {slides.map((s, i) => (
+            <div class="w-full shrink-0 snap-center">
+              <Image
+                src={s.src}
+                alt={`${title} — ${s.caption}`}
+                widths={[480, 800, 1200]}
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                class="aspect-[16/10] w-full object-cover object-top"
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            </div>
+          ))}
+        </div>
+
+        {hasMultiple && (
+          <>
+            <!-- prev arrow (overlay on image) -->
+            <button
+              class="card-prev pointer-events-auto absolute left-2 top-1/2 z-10 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full bg-black/30 text-white shadow backdrop-blur-sm transition-all duration-150 hover:bg-black/50 active:scale-95"
+              aria-label="Previous image"
+              tabindex="-1"
+              style="display:none"
+            >
+              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M10 12 6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <!-- next arrow (overlay on image) -->
+            <button
+              class="card-next pointer-events-auto absolute right-2 top-1/2 z-10 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full bg-black/30 text-white shadow backdrop-blur-sm transition-all duration-150 hover:bg-black/50 active:scale-95"
+              aria-label="Next image"
+              tabindex="-1"
+            >
+              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M6 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </>
+        )}
+      </div>
+
+      <!-- dots — BELOW the image, not overlaid -->
+      {hasMultiple && (
+        <div class="card-dots flex justify-center gap-1.5 pb-1 pt-2.5">
+          {slides.map((_, i) => (
+            <span
+              class="card-dot block h-1.5 w-1.5 rounded-full transition-colors duration-200"
+              style={i === 0 ? 'background:var(--color-accent)' : 'background:var(--color-line)'}
+            />
+          ))}
+        </div>
+      )}
     </div>
 
     <div class="flex flex-grow flex-col gap-4 px-6 pb-5 pt-5">
@@ -87,3 +147,61 @@ const statusLabel: Record<string, string> = {
     </div>
   </Card>
 </a>
+
+<script>
+  // Initialise every card carousel on the page (runs once per page load).
+  // Uses DOM-relative queries so multiple cards coexist without ID conflicts.
+  function initCardCarousels() {
+    document.querySelectorAll<HTMLElement>('[data-card-carousel]').forEach((root) => {
+      const track = root.querySelector<HTMLElement>('.card-track')!;
+      const prev  = root.querySelector<HTMLButtonElement>('.card-prev');
+      const next  = root.querySelector<HTMLButtonElement>('.card-next');
+      const dots  = Array.from(root.querySelectorAll<HTMLElement>('.card-dot'));
+      if (!track || dots.length < 2) return;
+
+      const items = Array.from(track.querySelectorAll<HTMLElement>(':scope > div'));
+      const total = items.length;
+      let current = 0;
+
+      function paint(idx: number) {
+        // dots: active = accent, inactive = line colour
+        dots.forEach((d, i) => {
+          d.style.background = i === idx ? 'var(--color-accent)' : 'var(--color-line)';
+        });
+        // arrows: hide at the boundary slides
+        if (prev) prev.style.display = idx === 0         ? 'none' : 'grid';
+        if (next) next.style.display = idx === total - 1 ? 'none' : 'grid';
+      }
+
+      function goTo(idx: number) {
+        current = Math.max(0, Math.min(idx, total - 1));
+        track.style.scrollBehavior = 'smooth';
+        track.scrollLeft = items[current].offsetLeft;
+        paint(current);
+      }
+
+      prev?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); goTo(current - 1); });
+      next?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); goTo(current + 1); });
+
+      // sync on native touch swipe
+      let timer: ReturnType<typeof setTimeout>;
+      track.addEventListener('scroll', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          let closest = 0, minDist = Infinity;
+          items.forEach((el, i) => {
+            const dist = Math.abs(el.offsetLeft - track.scrollLeft);
+            if (dist < minDist) { minDist = dist; closest = i; }
+          });
+          if (closest !== current) { current = closest; paint(current); }
+        }, 60);
+      });
+    });
+  }
+
+  initCardCarousels();
+</script>
+
+<style>
+  .card-track::-webkit-scrollbar { display: none; }
+</style>

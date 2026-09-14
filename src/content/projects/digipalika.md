@@ -4,7 +4,7 @@ tagline: Digitising a municipality's paper trail — registrations, recommendati
 kind: client
 status: live
 year: 2025
-role: Full-stack engineer
+role: Lead frontend engineer — team of 4
 stack: ['Next.js', 'NestJS', 'PostgreSQL', 'Nginx', 'Linux']
 cover: ../../assets/projects/digipalika.jpg
 order: 2
@@ -30,8 +30,8 @@ where their application is, nobody can answer without physically finding the led
 
 ## What I built
 
-An internal system for Besisahar Nagarpalika that keeps the municipality's existing workflow
-intact but moves it off paper.
+Built as part of a four-person team (one frontend, three backend engineers). I owned the
+full frontend and contributed to backend module design and integration.
 
 - **Darta–Chalani** — inbound and outbound document registration with automatic numbering, so
   the register is searchable instead of chronological-only.

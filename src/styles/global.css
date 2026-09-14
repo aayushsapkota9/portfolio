@@ -19,38 +19,36 @@
 
 /* ---------- design tokens ---------- */
 @theme {
-  --breakpoint-xs: 29.6875rem;          /* 475px */
+  --breakpoint-xs: 29.6875rem; /* 475px */
   /* Registered as a real breakpoint rather than written inline as
      min-[896px]:. Tailwind emits arbitrary media variants *before* the
      named ones, so min-[896px]:col-span-5 lost to md:col-span-6 at equal
      specificity and the header summed to 13 columns and wrapped. */
-  --breakpoint-md2: 56rem;              /* 896px */
-  --container-8xl: 90rem;               /* max-w-8xl */
+  --breakpoint-md2: 56rem; /* 896px */
+  --container-8xl: 90rem; /* max-w-8xl */
 
-  --font-sans:    "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
   --font-satoshi: "Satoshi", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
 
-  --color-ink:         #2f2f2f;
-  --color-muted:       #767676;
-  --color-faint:       #afb9c9;
-  --color-slate:       #77818f;
-  --color-line:        #d7dde4;
-  --color-line-card:   rgba(215, 221, 228, 0.6);
-  --color-hairline:    rgba(118, 118, 118, 0.31);
-  --color-accent:      #f97316;
+  --color-ink: #2f2f2f;
+  --color-muted: #767676;
+  --color-faint: #afb9c9;
+  --color-slate: #77818f;
+  --color-line: #d7dde4;
+  --color-line-card: rgba(215, 221, 228, 0.6);
+  --color-hairline: rgba(118, 118, 118, 0.31);
+  --color-accent: #f97316;
   --color-accent-wash: #fff3e6;
-  --color-card:        #fcfcfc;
+  --color-card: #fcfcfc;
 
-  --radius-frame: 1.75rem;              /* 28px — inner photo frame */
-  --radius-card:  2rem;                 /* 32px — the fancy-card    */
+  --radius-frame: 1.75rem; /* 28px — inner photo frame */
+  --radius-card: 2rem; /* 32px — the fancy-card    */
 
   --shadow-fancy:
-    inset 0 -3px 0 0 rgba(0, 0, 0, 0.05),
-    inset 0 0 0 2px #fff,
+    inset 0 -3px 0 0 rgba(0, 0, 0, 0.05), inset 0 0 0 2px #fff,
     inset 0 4px 2px 0 rgba(0, 0, 0, 0.06),
-    inset 0 0 24px 4px rgba(0, 0, 0, 0.04),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    inset 0 0 24px 4px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
 
 /* ---------- base ---------- */
@@ -100,7 +98,6 @@
   background: linear-gradient(#f7f7f7, var(--color-accent-wash));
 }
 
-
 /* ---------- entrance: fade + rise 24px, staggered left→right ----------
    Matches the reference's initial state (opacity 0, translateY(24px)).
    Applied to WRAPPERS, never to a card itself — `both` fill would otherwise
@@ -139,8 +136,12 @@
   .font-satoshi.font-semibold {
     font-family: -apple-system, BlinkMacSystemFont, system-ui !important;
   }
-  .font-satoshi.font-bold { font-weight: 800 !important; }
-  .font-satoshi.font-semibold { font-weight: 600 !important; }
+  .font-satoshi.font-bold {
+    font-weight: 800 !important;
+  }
+  .font-satoshi.font-semibold {
+    font-weight: 600 !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

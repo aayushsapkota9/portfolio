@@ -1,13 +1,13 @@
 ---
-import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
-import Base from '../../layouts/Base.astro';
-import Card from '../../components/ui/Card.astro';
-import PillButton from '../../components/ui/PillButton.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/ui/Card.astro";
+import PillButton from "../../components/ui/PillButton.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = await getCollection("projects");
   return projects.map((p) => ({ params: { slug: p.id }, props: { p } }));
 }
 
@@ -15,38 +15,45 @@ const { p } = Astro.props;
 const { Content } = await render(p);
 const d = p.data;
 
-const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const all = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 const idx = all.findIndex((x) => x.id === p.id);
 const next = all[(idx + 1) % all.length];
 
 const statusLabel: Record<string, string> = {
-  live: 'Live',
-  'in-progress': 'In progress',
-  archived: 'Archived',
-  private: 'Private',
+  live: "Live",
+  "in-progress": "In progress",
+  archived: "Archived",
+  private: "Private",
 };
 
 // Breadcrumbs give search results the Home › Projects › Name trail instead of
 // a bare URL; the CreativeWork lets a single case study rank on its own terms.
 const schema = [
   {
-    '@type': 'BreadcrumbList',
+    "@type": "BreadcrumbList",
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${Astro.site}` },
-      { '@type': 'ListItem', position: 2, name: 'Projects', item: `${Astro.site}projects/` },
-      { '@type': 'ListItem', position: 3, name: d.title },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${Astro.site}` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: `${Astro.site}projects/`,
+      },
+      { "@type": "ListItem", position: 3, name: d.title },
     ],
   },
   {
-    '@type': 'CreativeWork',
+    "@type": "CreativeWork",
     name: d.title,
     headline: `${d.title} — ${d.tagline}`,
     description: d.tagline,
     url: new URL(Astro.url.pathname, Astro.site).toString(),
     dateCreated: String(d.year),
-    creator: { '@id': `${Astro.site}#person` },
-    author: { '@id': `${Astro.site}#person` },
-    keywords: d.stack.join(', '),
+    creator: { "@id": `${Astro.site}#person` },
+    author: { "@id": `${Astro.site}#person` },
+    keywords: d.stack.join(", "),
     ...(d.url ? { sameAs: d.url } : {}),
   },
 ];
@@ -55,25 +62,20 @@ const schema = [
 const clip = (text: string, max: number) => {
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
-  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:—-]$/, '');
+  return cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:—-]$/, "");
 };
 
 // Search results cut titles around 60 characters. The tagline is a full
 // sentence and truncating it mid-phrase reads as broken, so the title carries
 // the two lead technologies instead and the tagline goes in the description.
-const title = `${d.title} — ${d.stack.slice(0, 2).join(' & ')} | Aayush Sapkota`;
+const title = `${d.title} — ${d.stack.slice(0, 2).join(" & ")} | Aayush Sapkota`;
 const description = clip(
-  `${d.tagline}. Built with ${d.stack.slice(0, 4).join(', ')} by Aayush Sapkota.`,
+  `${d.tagline}. Built with ${d.stack.slice(0, 4).join(", ")} by Aayush Sapkota.`,
   158,
 );
 ---
 
-<Base
-  title={title}
-  description={description}
-  type="article"
-  schema={schema}
->
+<Base title={title} description={description} type="article" schema={schema}>
   <main class="px-4 pb-10 xs:px-10">
     <article class="mx-auto max-w-6xl pt-16 xs:pt-24">
       <a
@@ -85,7 +87,7 @@ const description = clip(
       <div
         class="mt-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted"
       >
-        <span class={d.status === 'live' ? 'text-emerald-600' : 'text-muted'}>
+        <span class={d.status === "live" ? "text-emerald-600" : "text-muted"}>
           {statusLabel[d.status]}
         </span>
         <span class="text-line">/</span><span>{d.kind}</span>
@@ -187,7 +189,9 @@ const description = clip(
           class="flex items-center justify-between gap-6 px-6 py-6 xs:px-10 xs:py-8"
         >
           <div>
-            <div class="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
+            <div
+              class="font-mono text-[11px] uppercase tracking-[0.1em] text-muted"
+            >
               Next project
             </div>
             <div class="mt-2 text-3xl font-medium leading-none text-ink">
@@ -202,7 +206,10 @@ const description = clip(
             stroke-width="1.75"
             aria-hidden="true"
           >
-            <path d="M5 12h14m-6-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path
+              d="M5 12h14m-6-7 7 7-7 7"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
         </Card>
       </a>

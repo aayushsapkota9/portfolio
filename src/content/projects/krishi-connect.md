@@ -4,7 +4,7 @@ tagline: A national agriculture platform putting extension services in farmers' 
 kind: client
 status: live
 year: 2025
-role: Full-stack engineer
+role: Frontend rebuild & backend modules — joined existing project
 stack: ['Next.js', 'NestJS', 'PostgreSQL', 'Docker', 'AWS']
 cover: ../../assets/projects/krishi-connect-dashboard.jpg
 url: https://play.google.com/store/apps/details?id=app.krishiconnect
@@ -32,9 +32,10 @@ small number of officers. A farmer deciding *when to sow*, *how much fertilizer 
 *whether a crop plan is financially viable* has no reliable way to get that answer — and the
 officers who do know it spend their days re-answering the same questions by hand.
 
-## What I built
+## What I contributed
 
-A bilingual platform that turns that institutional knowledge into tools a farmer can actually use.
+Joined an existing platform and rebuilt the UI/UX from near-zero, bringing it to a
+production-quality standard. Also implemented several backend modules alongside the core team.
 
 - **Crop calendar** — sowing and harvest windows for every registered crop, mapped to the Nepali
   calendar rather than the Gregorian one, so the advice matches how farmers actually plan.

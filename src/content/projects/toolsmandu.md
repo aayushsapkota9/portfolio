@@ -4,7 +4,7 @@ tagline: A digital-subscription storefront for Nepal, plus the console that runs
 kind: client
 status: archived
 year: 2024
-role: Full-stack engineer
+role: Admin frontend, payments & backend modules — team of 2
 stack: ['Next.js', 'Node.js', 'MongoDB', 'Tailwind', 'Vercel']
 cover: ../../assets/projects/toolsmandu.jpg
 url: https://web.archive.org/web/20260215191137/https://www.toolsmandu.com/
@@ -39,6 +39,9 @@ them. Fulfilment failures are invisible until a customer complains — by which 
 already written.
 
 ## What I built
+
+Built in a two-person team (one backend engineer). I owned the full admin console frontend,
+payment processor integration, and several backend modules and entities.
 
 A storefront and an operations console, designed as one system.
 

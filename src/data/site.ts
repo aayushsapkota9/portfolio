@@ -2,11 +2,11 @@ export const site = {
   name: "Aayush Sapkota",
   wordmark: "aayush.",
   email: "aayushsapkota9@gmail.com",
-  role: "Full Stack / DevOps / AI Explorer",
-  focus: "Building scalable apps & automating workflows",
+  role: "Full-stack Engineer & DevOps Practitioner",
+  focus: "Building production apps and managing the infra around them",
   academic: "B.E. Computer Engineering",
   tagline:
-    "Full-stack engineer building scalable apps and automating the workflows around them.",
+    "Full-stack engineer who ships production apps and manages the infrastructure around them.",
   github: "https://github.com/aayushsapkota9",
 };
 
@@ -20,13 +20,13 @@ export const focus = [
   },
   {
     title: "Cloud & DevOps",
-    tagline: "AWS, Docker, Kubernetes, Terraform",
+    tagline: "AWS, Docker, GitHub Actions, Nginx",
     href: "/projects",
     variant: "lines" as const,
   },
   {
-    title: "AI & automation",
-    tagline: "N8N, Pytorch, TensorFlow",
+    title: "AI & learning path",
+    tagline: "Gemini API, OpenAI, embedded systems",
     href: "/projects",
     variant: "chat" as const,
   },
@@ -53,22 +53,22 @@ export const stack = [
   {
     group: "Cloud & DevOps",
     items: [
-      "AWS",
+      "AWS (studying SAA)",
       "Docker",
-      "Kubernetes",
-      "Terraform",
       "GitHub Actions",
       "Nginx",
+      "VPS / PM2",
+      "IaC concepts (Terraform)",
     ],
   },
   {
-    group: "AI & automation",
+    group: "AI & learning path",
     items: [
-      "N8N",
-      "PyTorch",
-      "TensorFlow",
-      "OpenCV",
+      "Gemini API",
+      "OpenAI API",
+      "TTS / speech APIs",
       "ESP32 / Arduino",
+      "PyTorch (learning)",
     ],
   },
 ];
@@ -104,6 +104,26 @@ export const logos = [
     href: "/projects/kirana-books",
     path: "M3 6h18v12H3V6Zm0 4h18M7 15h4",
     stroke: true,
+  },
+];
+
+/** Formal training programmes completed. */
+export const training = [
+  {
+    title: "MERN Stack Development",
+    issuer: "Professional Training",
+    hours: 135,
+    period: "Jun 2023 – Sep 2023",
+    description:
+      "135-hour professional programme covering MongoDB, Express, React, and Node.js — full-stack JavaScript end to end.",
+  },
+  {
+    title: "DevOps — Applications with CI/CD, Docker & Kubernetes",
+    issuer: "Professional Training",
+    hours: 113,
+    period: "2.5 months ",
+    description:
+      "113-hour programme on deploying applications with CI/CD pipelines, Docker containerisation, and Kubernetes orchestration.",
   },
 ];
 
