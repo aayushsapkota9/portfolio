@@ -1,0 +1,890 @@
+---
+import Base from "../layouts/Base.astro";
+import { Image } from "astro:assets";
+import SiteFooter from "../components/SiteFooter.astro";
+import Card from "../components/ui/Card.astro";
+import Eyebrow from "../components/ui/Eyebrow.astro";
+import PillButton from "../components/ui/PillButton.astro";
+import { site } from "../data/site";
+import nepalHouse from "../assets/projects/nepal-house.jpg";
+import kiranaBooks from "../assets/projects/kirana-books.jpg";
+import toolsMandu from "../assets/projects/toolsmandu.jpg";
+import krishiConnect from "../assets/projects/krishi-connect-dashboard.jpg";
+import checkmateWhatsapp from "../assets/projects/checkmate-whatsapp.jpeg";
+import starlight from "../assets/projects/starlight.jpg";
+
+const title = `Expectations | ${site.name}`;
+const description =
+  "A quick guide to the digital systems Aayush can build for a business and the technical scope he can take on.";
+
+const businessSystems = [
+  {
+    title: "Online shop & payments",
+    copy: "A customer storefront paired with the operational tools needed to fulfil, support, and track each order.",
+    details: [
+      "Catalogues, carts, checkout and local payment integration",
+      "Order states, fulfilment and support workflows",
+      "Admin dashboards for products and day-to-day operations",
+    ],
+    project: "ToolsMandu · e-commerce storefront",
+    href: "/projects/toolsmandu",
+    image: toolsMandu,
+    alt: "ToolsMandu online store and product catalogue",
+  },
+  {
+    title: "Retail, POS & accounting",
+    copy: "One system for counter sales, stock, purchasing, and the reports that show where the business stands.",
+    details: [
+      "Counter billing, receipts, discounts and split payments",
+      "Inventory, purchases, VAT and production tracking",
+      "Cash, bank, sales and accounting reports",
+    ],
+    project: "Kirana Books · retail & mill operations",
+    href: "/projects/kirana-books",
+    image: kiranaBooks,
+    alt: "Kirana Books accounting and point of sale dashboard",
+  },
+
+  {
+    title: "Community & field services",
+    copy: "Portals and internal tools for organisations serving a large group of people, staff, or members.",
+    details: [
+      "Applications, records, approval flows and document generation",
+      "Role-based dashboards for staff, experts and administrators",
+      "Public information, notices, calculators and self-service tools",
+    ],
+    project: "Krishi Connect · national agriculture platform",
+    href: "/projects/krishi-connect",
+    image: krishiConnect,
+    alt: "Krishi Connect agriculture platform dashboard",
+  },
+  {
+    title: "Restaurant & bookings",
+    copy: "A food-first website that gives customers the menu, location, and a clear path to reserve a table.",
+    details: [
+      "Menu and visual-led pages that make people hungry",
+      "Table booking with date, party size and time slot",
+      "Mobile-first directions, contact and social proof",
+    ],
+    project: "Nepal House · restaurant, Norway",
+    href: "/projects/nepal-house",
+    image: nepalHouse,
+    alt: "Nepal House restaurant website with food photography and booking call to action",
+  },
+  {
+    title: "AI & chatbot integration",
+    copy: "Helpful assistants that handle customer questions, leads, and appointment requests while handing the important conversations to your team.",
+    details: [
+      "Website or WhatsApp chat flows built around your actual customer journey",
+      "AI-assisted answers connected to your services, bookings, or internal process",
+      "Lead capture, appointment handoff and clear escalation to a person",
+    ],
+    project: "Checkmate · WhatsApp appointment assistant",
+    href: "/projects/codefest",
+    image: checkmateWhatsapp,
+    alt: "Checkmate WhatsApp voice assistant for booking appointments",
+  },
+  {
+    title: "Company presence",
+    copy: "A polished public home for your company that makes your services, credibility, and next step easy to understand.",
+    details: [
+      "Bilingual content and clear service positioning for the people you serve",
+      "Service pages, galleries, contact paths, and the information customers look for first",
+      "Fast, mobile-friendly pages that are simple for your team to maintain",
+    ],
+    project: "Starlight · bilingual company website",
+    href: "/projects/starlight",
+    image: starlight,
+    alt: "Starlight bilingual website for a restaurant and hotel-cleaning company",
+  },
+];
+
+const developerPaths = [
+  {
+    number: "01",
+    title: "Comfortable owning",
+    copy: "Focused production features: UI, REST APIs, Sockets, database models, authentication, dashboards, and practical product integrations.",
+    details: [
+      "Standard product features from schema to deployment",
+      "Authentication, RBAC, tables, forms and document generation",
+      "LLM API integrations with structured, reviewable responses",
+    ],
+    tags: ["Next.js", "NestJS", "PostgreSQL", "Gemini API", "Docker"],
+    evidence:
+      "Krishi Connect and ToolsMandu — user journeys, dashboards and frontend/backend feature work I can own within a product team. Checkmate demonstrates a Gemini-powered WhatsApp appointment assistant.",
+    projectHref: "/projects/krishi-connect",
+    projectLabel: "See Krishi Connect",
+  },
+  {
+    number: "02",
+    title: "Can contribute with guidance",
+    copy: "Production deployment and infrastructure that needs architecture review: cloud design, release pipelines, security decisions, and complex integrations.",
+    details: [
+      "Can build within an agreed architecture",
+      "Escalate deployment, infrastructure and security decisions early",
+    ],
+    tags: ["AWS", "CI/CD", "Nginx", "Webhooks"],
+    evidence:
+      "The production deployment of Krishi Connect and Kirana Books — cloud setup, Nginx, release pipelines and operational hardening — benefits from senior review.",
+    projectHref: "/projects/kirana-books",
+    projectLabel: "See Kirana Books",
+  },
+  {
+    number: "03",
+    title: "Learning & boundaries",
+    copy: "Not the right solo owner for large distributed systems, enterprise Kubernetes, or custom model training. Those need a specialist or senior lead. However i'm training on AWS Certified Solutions Architect(Associate) and Claude Certified Architect(Foundations) right now",
+    details: [
+      "Happy to contribute with an experienced lead",
+      "Will say early when a specialist is the better fit",
+    ],
+    tags: ["Kubernetes", "Terraform", "ML training"],
+    evidence:
+      "I can work alongside these systems, but will not present myself as the senior owner for their architecture or operations.",
+    projectHref: "/projects",
+    projectLabel: "View all projects",
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <main class="px-4 pb-10 xs:px-10">
+    <article class="mx-auto max-w-6xl pt-12 xs:pt-20">
+      <header class="expectation-stage">
+        <div class="expectation-copy rise" style="--rise-delay:0ms">
+          <a
+            href="/"
+            class="font-satoshi text-sm font-bold uppercase tracking-wide text-muted transition-colors hover:text-accent"
+          >
+            ← Back to home
+          </a>
+          <Eyebrow label="Quick fit check" class="mt-8 ml-0" />
+          <h1
+            class="mt-5 font-display text-[52px] font-medium leading-[.88] tracking-tighter text-ink xs:text-[82px]"
+          >
+            Expectations
+          </h1>
+          <p
+            class="mt-6 max-w-2xl text-lg leading-relaxed text-muted xs:text-xl"
+          >
+            A short guide to the work I can confidently take on—and when your
+            project needs a more specialised team.
+          </p>
+        </div>
+
+        <aside
+          class="fit-signal fancy-card rise"
+          style="--rise-delay:110ms"
+          aria-label="How I work"
+        >
+          <p class="fit-signal__label">How I work</p>
+          <p class="fit-signal__title">Clear scope.<br />Direct answers.</p>
+          <ol class="fit-signal__steps">
+            <li><span>01</span> Start with the problem</li>
+            <li><span>02</span> Keep the first version focused</li>
+            <li><span>03</span> Flag risks early</li>
+          </ol>
+        </aside>
+      </header>
+
+      <section
+        class="view-switcher rise"
+        style="--rise-delay:190ms"
+        aria-labelledby="audience-heading"
+      >
+        <h2 id="audience-heading" class="sr-only">Choose your view</h2>
+        <div
+          class="expectation-tabs fancy-card"
+          role="tablist"
+          aria-label="Choose how to view expectations"
+        >
+          <button
+            id="business-owner-tab"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="business-owner-panel"
+            tabindex="0"
+            data-audience="business"
+          >
+            <span>Business owner</span>
+            <small>What I can build for you</small>
+          </button>
+          <button
+            id="developer-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="developer-panel"
+            tabindex="-1"
+            data-audience="developer"
+          >
+            <span>Developer</span>
+            <small>Scope and technical fit</small>
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="business-owner-panel"
+        role="tabpanel"
+        aria-labelledby="business-owner-tab"
+        data-panel="business"
+        class="audience-panel is-entering mt-12"
+      >
+        <div class="section-heading rise" style="--rise-delay:260ms">
+          <div class="section-heading__label">
+            <Eyebrow label="Business owner" class="ml-0" />
+            <span>01 / services</span>
+          </div>
+          <div>
+            <h2
+              class="font-display text-[36px] font-medium leading-[.93] tracking-tighter text-ink xs:text-[56px]"
+            >
+              What I can build<br />for your business.
+            </h2>
+            <p
+              class="mt-5 max-w-2xl text-base leading-relaxed text-muted xs:text-lg"
+            >
+              Focused systems that help you sell, serve customers, or run
+              everyday work with less manual effort.
+            </p>
+          </div>
+        </div>
+
+        <div class="business-systems mt-10">
+          {
+            businessSystems.map((system, index) => (
+              <div class="rise" style={`--rise-delay:${320 + index * 55}ms`}>
+                <Card
+                  hover
+                  class="business-system fancy-card flex flex-col overflow-hidden"
+                >
+                  <div class="business-system__visual">
+                    <Image
+                      src={system.image}
+                      alt={system.alt}
+                      widths={[600, 900, 1200]}
+                      sizes="(max-width: 767px) 100vw, 50vw"
+                      class="h-full w-full object-cover object-top"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                    <span class="business-system__number" aria-hidden="true">
+                      0{index + 1}
+                    </span>
+                  </div>
+                  <div class="business-system__body">
+                    <p class="business-system__project">{system.project}</p>
+                    <h3 class="font-satoshi text-[25px] font-bold leading-[1.02] text-ink">
+                      {system.title}
+                    </h3>
+                    <p class="mt-4 text-sm leading-relaxed text-muted">
+                      {system.copy}
+                    </p>
+                    <ul class="scope-details mt-6">
+                      {system.details.map((detail) => (
+                        <li>{detail}</li>
+                      ))}
+                    </ul>
+                    <div class="business-system__action">
+                      <a
+                        href={system.href}
+                        class="business-system__link mt-7 inline-flex items-center gap-1 font-mono text-[11px] font-semibold uppercase tracking-[.09em] text-muted transition-colors hover:text-accent"
+                      >
+                        See the project <span aria-hidden="true">↗</span>
+                      </a>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="rise" style="--rise-delay:540ms">
+          <Card
+            class="mt-6 flex flex-col items-start justify-between gap-5 px-6 py-6 xs:px-8 md:flex-row md:items-center"
+          >
+            <div>
+              <p
+                class="font-mono text-[11px] font-semibold uppercase tracking-[.1em] text-accent"
+              >
+                Good fit
+              </p>
+              <p class="mt-2 max-w-2xl text-base leading-relaxed text-muted">
+                You have a real business problem, a focused first version in
+                mind, and value direct communication over a long agency process.
+              </p>
+            </div>
+            <PillButton href={`mailto:${site.email}`} class="shrink-0"
+              >Discuss your project</PillButton
+            >
+          </Card>
+        </div>
+      </section>
+
+      <section
+        id="developer-panel"
+        role="tabpanel"
+        aria-labelledby="developer-tab"
+        data-panel="developer"
+        class="audience-panel mt-12"
+        hidden
+      >
+        <div class="section-heading rise" style="--rise-delay:40ms">
+          <div class="section-heading__label">
+            <Eyebrow label="Developer view" class="ml-0" />
+            <span>02 / scope map</span>
+          </div>
+          <div>
+            <h2
+              class="font-display text-[36px] font-medium leading-[.93] tracking-tighter text-ink xs:text-[56px]"
+            >
+              A clear scope map.
+            </h2>
+            <p
+              class="mt-5 max-w-2xl text-base leading-relaxed text-muted xs:text-lg"
+            >
+              I am a strong junior leaning intermediate: productive with a
+              modern web stack on focused product areas, and explicit about
+              where senior review adds value.
+            </p>
+          </div>
+        </div>
+
+        <div class="scope-rail mt-10">
+          {
+            developerPaths.map((path) => (
+              <div
+                class="scope-step rise"
+                style={`--rise-delay:${110 + Number(path.number) * 55}ms`}
+              >
+                <div class="scope-step__number" aria-hidden="true">
+                  {path.number}
+                </div>
+                <Card class="scope-step__card fancy-card p-6 xs:p-7">
+                  <div class="scope-step__intro">
+                    <h3 class="font-satoshi text-[23px] font-bold leading-tight text-ink">
+                      {path.title}
+                    </h3>
+                    <p class="mt-3 text-sm leading-relaxed text-muted">
+                      {path.copy}
+                    </p>
+                  </div>
+                  <div class="scope-step__detail">
+                    <p class="scope-step__eyebrow">Technology focus</p>
+                    <ul class="scope-details">
+                      {path.details.map((detail) => (
+                        <li>{detail}</li>
+                      ))}
+                    </ul>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                      {path.tags.map((tag) => (
+                        <span class="rounded-md border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-wide text-muted">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div class="scope-step__evidence">
+                      <p class="scope-step__eyebrow">Project evidence</p>
+                      <p>{path.evidence}</p>
+                      <a href={path.projectHref} class="scope-step__link">
+                        {path.projectLabel} <span aria-hidden="true">↗</span>
+                      </a>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))
+          }
+        </div>
+
+        <div
+          class="developer-cta rise mt-8 flex flex-wrap items-center justify-between gap-4"
+          style="--rise-delay:310ms"
+        >
+          <p class="max-w-2xl text-base leading-relaxed text-muted">
+            Want the project detail? The case studies show the kind of systems I
+            have shipped.
+          </p>
+          <PillButton href="/projects" class="shrink-0"
+            >View projects</PillButton
+          >
+        </div>
+      </section>
+    </article>
+
+    <div class="mx-auto mt-12 max-w-8xl"><SiteFooter /></div>
+  </main>
+</Base>
+
+<script>
+  const viewButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-audience]"),
+  );
+  const viewPanels = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-panel]"),
+  );
+  const views = ["business", "developer"] as const;
+  type Audience = (typeof views)[number];
+
+  function activateView(view: Audience) {
+    viewButtons.forEach((button) => {
+      const active = button.dataset.audience === view;
+      button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+
+    viewPanels.forEach((panel) => {
+      const active = panel.dataset.panel === view;
+      panel.hidden = !active;
+      panel.classList.remove("is-entering");
+      if (active) {
+        void panel.offsetWidth;
+        panel.classList.add("is-entering");
+      }
+    });
+  }
+
+  viewButtons.forEach((button, index) => {
+    button.addEventListener("click", () =>
+      activateView(button.dataset.audience as Audience),
+    );
+    button.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key))
+        return;
+      event.preventDefault();
+      const nextIndex =
+        event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? viewButtons.length - 1
+            : (index +
+                (event.key === "ArrowRight" ? 1 : -1) +
+                viewButtons.length) %
+              viewButtons.length;
+      const nextButton = viewButtons[nextIndex];
+      nextButton.focus();
+      activateView(nextButton.dataset.audience as Audience);
+    });
+  });
+</script>
+
+<style>
+  .expectation-stage {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .fit-signal {
+    position: relative;
+    align-self: end;
+    overflow: hidden;
+    padding: 1.6rem;
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        rgba(249, 115, 22, 0.16),
+        transparent 35%
+      ),
+      linear-gradient(#f7f7f7, #ffffff);
+  }
+
+  .fit-signal::after {
+    position: absolute;
+    right: -1.2rem;
+    bottom: -1.75rem;
+    width: 7rem;
+    height: 7rem;
+    border: 1px solid rgba(249, 115, 22, 0.35);
+    border-radius: 999px;
+    content: "";
+  }
+
+  .fit-signal__label,
+  .fit-signal__steps,
+  .section-heading__label span,
+  .scope-step__number {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .fit-signal__label {
+    color: var(--color-accent);
+  }
+
+  .fit-signal__title {
+    position: relative;
+    z-index: 1;
+    margin-top: 0.65rem;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 540;
+    line-height: 0.92;
+    letter-spacing: -0.055em;
+  }
+
+  .fit-signal__steps {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.45rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    color: var(--color-muted);
+    list-style: none;
+  }
+
+  .fit-signal__steps li {
+    display: flex;
+    gap: 0.65rem;
+  }
+  .fit-signal__steps span {
+    color: var(--color-accent);
+  }
+
+  .view-switcher {
+    margin-top: 2.75rem;
+  }
+
+  .expectation-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem;
+    max-width: 38rem;
+    padding: 0.35rem;
+  }
+
+  .expectation-tabs button {
+    border: 0;
+    border-radius: calc(var(--radius-card) - 0.55rem);
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+    padding: 0.95rem 1.2rem;
+    text-align: left;
+    transition:
+      background 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .expectation-tabs button:hover {
+    color: var(--color-ink);
+  }
+
+  .expectation-tabs button[aria-selected="true"] {
+    background: #fff;
+    color: var(--color-ink);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .expectation-tabs span,
+  .expectation-tabs small {
+    display: block;
+  }
+  .expectation-tabs span {
+    font-family: var(--font-satoshi);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .expectation-tabs small {
+    margin-top: 0.2rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .audience-panel.is-entering {
+    animation: panel-in 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  .audience-panel[hidden] {
+    display: none;
+  }
+
+  .section-heading {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .section-heading__label {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+  }
+
+  .section-heading__label span {
+    color: var(--color-faint);
+  }
+
+  .business-systems {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .business-system {
+    position: relative;
+    min-width: 0;
+  }
+
+  .business-system__visual {
+    position: relative;
+    height: clamp(10rem, 21vw, 13rem);
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-accent-wash);
+  }
+
+  .business-system__visual::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 48%, rgba(0, 0, 0, 0.18));
+    content: "";
+    pointer-events: none;
+  }
+
+  .business-system__number {
+    position: absolute;
+    z-index: 1;
+    right: 1rem;
+    bottom: 0.8rem;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 650;
+    line-height: 0.8;
+    letter-spacing: -0.1em;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .business-system__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.35rem 1.35rem 1.5rem;
+  }
+
+  .business-system__project,
+  .scope-step__eyebrow {
+    margin: 0 0 0.65rem;
+    color: var(--color-accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .business-system__link {
+    align-self: flex-start;
+    margin-top: 0;
+  }
+
+  .business-system__action {
+    margin-top: 1.5rem;
+  }
+
+  .project-fit {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-fit::before {
+    position: absolute;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    left: 0;
+    width: 3px;
+    border-radius: 99px;
+    background: var(--color-accent);
+    content: "";
+  }
+
+  .scope-details {
+    display: grid;
+    gap: 0.45rem;
+    margin-bottom: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .scope-details li {
+    position: relative;
+    padding-left: 0.9rem;
+    color: var(--color-muted);
+    font-family: var(--font-satoshi);
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .scope-details li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+  }
+
+  .scope-rail {
+    position: relative;
+    display: grid;
+    margin-top: 3.5rem;
+    gap: 1rem;
+  }
+
+  .scope-rail::before {
+    position: absolute;
+    top: 1.15rem;
+    bottom: 1.15rem;
+    left: 1.45rem;
+    width: 1px;
+    background: var(--color-line);
+    content: "";
+  }
+
+  .scope-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.75rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .scope-step__number {
+    z-index: 1;
+    align-self: start;
+    width: 2.9rem;
+    padding: 0.45rem 0;
+    border-radius: 99px;
+    background: var(--color-accent-wash);
+    color: var(--color-accent);
+    text-align: center;
+  }
+
+  .scope-step__card {
+    display: grid;
+    gap: 1.5rem;
+    padding: 2rem 2.25rem;
+  }
+
+  .scope-step__detail {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .scope-step__evidence {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .scope-step__evidence p:not(.scope-step__eyebrow) {
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-satoshi);
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .scope-step__link {
+    display: inline-flex;
+    margin-top: 0.65rem;
+    color: var(--color-ink);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 180ms ease;
+  }
+
+  .scope-step__link:hover {
+    color: var(--color-accent);
+  }
+
+  .developer-cta {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: none;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .expectation-tabs {
+      grid-template-columns: 1fr;
+    }
+    .expectation-tabs button {
+      padding: 0.8rem 1rem;
+    }
+    .fit-signal {
+      padding: 1.35rem;
+    }
+    .scope-step {
+      grid-template-columns: 3.25rem minmax(0, 1fr);
+      gap: 0.5rem;
+    }
+    .scope-rail::before {
+      left: 1.2rem;
+    }
+    .scope-step__number {
+      width: 2.4rem;
+      font-size: 0.58rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .expectation-stage {
+      grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.7fr);
+      align-items: end;
+      gap: 3rem;
+    }
+
+    .view-switcher {
+      margin-top: 3.5rem;
+    }
+
+    .section-heading {
+      grid-template-columns: minmax(9rem, 0.45fr) minmax(0, 1.55fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .business-systems {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .business-system__body {
+      padding: 1.6rem 1.75rem 1.75rem;
+    }
+
+    .scope-step__card {
+      grid-template-columns: minmax(0, 1.15fr) minmax(15rem, 0.85fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .scope-step__detail {
+      padding-top: 0;
+      padding-left: 2rem;
+      border-top: 0;
+      border-left: 1px solid var(--color-line);
+    }
+  }
+</style>

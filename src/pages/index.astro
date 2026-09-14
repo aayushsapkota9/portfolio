@@ -36,10 +36,21 @@ const featured = projects.filter((p) => p.data.featured).slice(0, 3);
       </div>
 
       <div
-        class="group rise col-span-10 mb-4 hidden h-fit flex-col items-end justify-end p-8 px-0 text-right xs:mb-8 md:col-span-6 md:flex md2:col-span-5"
+        class="group rise col-span-10 mb-4 hidden h-fit flex-col items-end justify-end gap-4 p-8 px-0 text-right xs:mb-8 md:col-span-6 md:flex md2:col-span-5"
         style="--rise-delay:130ms"
       >
         <NowPlayingCard />
+        <a
+          href="/expectations"
+          class="group/fit inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-accent"
+        >
+          <span class="text-accent">Quick fit check</span>
+          <span>Expectations</span>
+          <span
+            class="text-sm transition-transform duration-200 group-hover/fit:translate-x-0.5"
+            aria-hidden="true">↗</span
+          >
+        </a>
       </div>
     </header>
 

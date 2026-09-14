@@ -64,11 +64,11 @@ export const stack = [
   {
     group: "AI & learning path",
     items: [
-      "Gemini API",
-      "OpenAI API",
+      "Gemini/OpenAI API",
       "TTS / speech APIs",
       "ESP32 / Arduino",
       "PyTorch (learning)",
+      "Claude Certified Architect(CCAR-F)(learning)",
     ],
   },
 ];
