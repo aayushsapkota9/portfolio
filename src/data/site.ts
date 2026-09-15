@@ -68,7 +68,7 @@ export const stack = [
       "TTS / speech APIs",
       "ESP32 / Arduino",
       "PyTorch (learning)",
-      "Claude Certified Architect(CCAR-F)(learning)",
+      "Claude Certified Architect(learning)",
     ],
   },
 ];

@@ -1,11 +1,11 @@
 ---
 title: SHN Mart
-tagline: A health & wellness e-commerce storefront for a Bangladeshi marketplace
+tagline: A health & wellness e-commerce storefront for a Nepali marketplace
 kind: client
 status: live
 year: 2025
-role: Frontend — bug fixes, QA & VPS deployment
-stack: ['React', 'Vercel', 'VPS']
+role: Frontend — bug fixes, UI Changes & VPS deployment
+stack: ["React", "Vercel", "VPS"]
 cover: ../../assets/projects/shnmart.jpg
 url: https://shnmart.com/
 order: 6
