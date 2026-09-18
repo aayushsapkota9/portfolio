@@ -1,0 +1,69 @@
+[
+  {
+    "company": "Self-Employed",
+    "type": "Self-employed · Part-time",
+    "location": "Remote",
+    "start": "2026-04",
+    "end": null,
+    "role": "Full-Stack Developer",
+    "projects": ["Accounting SaaS", "Restaurant Booking System SaaS"],
+    "highlights": [
+      "Building SaaS products independently — accounting system and restaurant booking platform."
+    ],
+    "skills": ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Docker", "NestJS"]
+  },
+  {
+    "company": "Nepdev Technology",
+    "type": "Contract",
+    "location": "Remote",
+    "start": "2025-12",
+    "end": "2026-03",
+    "role": "Full Stack Engineer",
+    "projects": ["Krishi Connect"],
+    "highlights": [
+      "Rebuilt the full frontend UI/UX to production standard and integrated backend modules.",
+      "Delivered crop calendar, fertilizer calculator, business plan PDF generator, and RBAC."
+    ],
+    "skills": ["Next.js", "React", "TypeScript", "NestJS", "PostgreSQL", "Prisma", "Docker", "AWS"]
+  },
+  {
+    "company": "Nepdev Technology",
+    "type": "Contract",
+    "location": "Remote",
+    "start": "2024-02",
+    "end": "2024-08",
+    "role": "Full Stack Engineer",
+    "projects": ["ToolsMandu"],
+    "highlights": [
+      "Owned admin console frontend — orders, inventory, tickets, and payment integration.",
+      "Built credential inventory system with stock alerts and WhatsApp-first registration flow."
+    ],
+    "skills": ["Next.js", "React", "TypeScript", "Node.js", "Express", "MongoDB", "Vercel"]
+  },
+  {
+    "company": "Nepdev Technology",
+    "type": "Internship",
+    "location": "Hybrid",
+    "start": "2023-09",
+    "end": "2024-02",
+    "role": "Frontend Developer Intern",
+    "projects": ["DigiPalika"],
+    "highlights": [
+      "Built core UI modules: document registry (darta–chalani), sifaris letter builder, and citizen portal."
+    ],
+    "skills": ["Next.js", "React", "TypeScript", "Tailwind CSS", "REST APIs"]
+  },
+  {
+    "company": "Nakshatra Techno Hub",
+    "type": "Contract",
+    "location": "Remote",
+    "start": "2024-02",
+    "end": "2024-03",
+    "role": "Frontend Developer",
+    "projects": ["SHN Mart"],
+    "highlights": [
+      "Resolved frontend bug backlog, completed QA sign-off, and deployed to client VPS."
+    ],
+    "skills": ["React", "VPS Deployment", "Nginx", "QA"]
+  }
+]
